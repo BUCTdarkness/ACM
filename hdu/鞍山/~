@@ -1,0 +1,87 @@
+#pragma comment(linker, "/STACK:36777216")
+#include <functional>
+#include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <numeric>
+#include <cstring>
+#include <climits>
+#include <cassert>
+#include <complex>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <bitset>
+#include <queue>
+#include <stack>
+#include <cmath>
+#include <ctime>
+#include <list>
+#include <set>
+#include <map>
+using namespace std;
+
+class TreeNode{
+private:
+	string name;
+	int count;
+	TreeNode *par,*next;
+	vector<TreeNode*> children;
+public:
+	TreeNode(){};
+	TreeNode(string name){this->name=name;}
+	void setName(string name){this->name=name;}
+	string getName(){return name;}
+	int getCount(){return count;}
+	void setCount(int count){this->count=count;}
+	TreeNode *getParent(){return par;}
+	void setParent(TreeNode *par){
+		this->par=par;
+	}
+	vector<TreeNode*> getChildren(){
+		return children;
+	}
+	void setChildren(vector<TreeNode *> children){
+		this->children=children;
+	}
+	void addChild(TreeNode *child){
+		children.push_back(child);
+	}
+	TreeNode * findChild(string name){
+		vector<TreeNode*> childList=this->getChildren();
+		if(childList.size()!=0){
+			vector<TreeNode*>::iterator it;
+			for(it=childList.begin();it!=childList.end();it++){
+				if((*it)->getName()==name){
+					return *it;
+				}
+			}
+		}
+		return NULL;
+	}
+	void prntChildrenName(){
+		vector<TreeNode *> childrenList=this->getChildren();
+		if(childrenList.size()!=0){
+			vector<TreeNode *>::iterator it;
+			for(it=childrenList.begin();it!=childrenList.end();it++){
+				cout<<(*it)->getName()<<" ";
+			}
+			//cout<<endl;
+		}
+		else{
+			cout<<"NULL";
+		}
+	}
+	TreeNode * getNextHomonym(){
+		return next;
+	}
+	void setNextHomonym(TreeNode *next){
+		this->next=next;
+	}
+	void countIncrement(int n){
+		this->count+=n;
+	}
+};
+

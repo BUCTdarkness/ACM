@@ -1,0 +1,99 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <algorithm>
+#include <map>
+#include <vector>
+#include <queue>
+#include <string>
+#include <stack>
+#include <set>
+using namespace std;
+const int MAXL=5100001;
+#define CLR(A) memset(A,0,sizeof(A))
+struct Node{
+	Node *child[26];
+	Node *pre;
+	bool  badnode;
+	void init(){
+		memset(child,0,sizeof(child));
+		badnode=false;
+		pre=NULL;
+	}
+}tree[1000010];
+char pat[MAXL],word[1000005];
+int ret=0,cnt=0;
+void insert(Node *p,char *s){
+	for(int i=0;s[i];i++){
+		if(p->child[s[i]-'a']==NULL){
+			p->child[s[i]-'a']=tree+cnt;
+			cnt++;
+		}
+		p=p->child[s[i]-'a'];
+	}
+	p->badnode=true;
+}
+void BuildDfa(){
+	for(int i=0;i<26;i++) tree[0].child[i]=tree+1;
+	tree[0].pre=NULL;
+	tree[1].pre=tree;
+	queue<Node *> q;
+	q.push(tree+1);
+	while(!q.empty()){
+		Node *p=q.front();
+		q.pop();
+		for(int i=0;i<26;i++){
+			Node *tmp=p->child[i];
+			if(tmp){
+				Node *pre=p->pre;
+				while(pre){
+					if(pre->child[i]){
+						tmp->pre=pre->child[i];
+						if(tmp->pre->badnode) tmp->badnode=true;
+						break;
+					}
+					else pre=pre->pre;
+				}
+				q.push(tmp);
+			}
+		}
+	}
+}
+bool search(char *s){
+	Node *p=tree+1;
+	for(int i=0;s[i];i++){
+		for(;;){
+			if(p->child[s[i]-'a']){
+				p=p->child[s[i]-'a'];
+				if(p->badnode) {
+					ret++;
+					return true;
+				}
+				break;
+			}
+			else{
+				p=p->pre;
+			}
+		}
+	}
+	return false;
+}
+int main(){
+    cout<<sizeof(Node)<<endl;
+	int n;
+	while(~scanf("%d",&n)){
+        ret=0;cnt=2;CLR(tree);
+		for(int i=0;i<n;i++){
+			scanf("%s",word);
+			insert(tree+1,word);
+		}
+		getchar();
+		BuildDfa();
+		scanf("%s",pat);
+        if(search(pat)) cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+	}
+	return 0;
+}
+

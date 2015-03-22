@@ -1,0 +1,43 @@
+#include<stdio.h>
+int main()
+{
+    int n,r,i,b[2000],c[2000],flag,j,a[2000],t,z;
+    while(scanf("%d",&n)!=EOF)
+    {
+        r=0;
+        for(i=0;i<n;i++)
+            b[i]=0;
+        for(i=0;i<n;i++)
+            c[i]=0;
+        for(i=0;i<n;i++)
+        {
+            scanf("%d",&a[i]);
+            flag=0;
+            for(j=1;j<=r;j++)
+            {
+                if(c[j]==a[i])
+                {
+                   b[j]++;
+                   flag=1;
+                   break;
+                }
+            }
+            if(flag==0)
+            {
+                r++;
+                b[r]++;
+                c[r]=a[i];
+            }
+        }
+        if((n+1)%2)
+            t=((n+1)/2)+1;
+        else
+            t=(n+1)/2;
+        for(i=1;i<=r;i++)
+        {
+            if(b[i]>=t)
+                printf("%d\n",c[i]);         
+        }
+    }
+    return 0;
+}

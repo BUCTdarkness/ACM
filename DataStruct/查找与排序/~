@@ -1,0 +1,35 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+#define MAXN 100000
+int find(int a[],int low,int high,int v)
+{
+	while(low<high)
+	{
+		int m=(low+high)/2;
+		if(a[m]<v)
+		{
+			low=m+1;
+		}
+		else
+		{
+			high=m;
+		}
+	}
+	return low;
+}
+int main()
+{
+	int n,x,k;
+	int arr[MAXN];
+	while(cin>>n>>k)
+	{
+		for(int i=0;i<n;i++)
+		{
+			cin>>arr[i];
+		}
+		
+	}
+	return 0;
+}
+

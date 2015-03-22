@@ -1,0 +1,3 @@
+这是我大学以来在hdu做过的一些题目。
+网站地址：acm.hdu.edu.cn
+HDOJ简介：http://baike.baidu.com/link?url=JXu7GCioT_WldtReRtRHyiRALLDlB2wEbruR2D4e4PFoh_WvBlJGsmjteSz0IqRutTV1NtuiTySriHpDGUtMJK
